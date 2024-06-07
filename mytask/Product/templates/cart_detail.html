@@ -11,6 +11,8 @@
         {% for item in cart.items %}
             <li>{{ item.product.name }} - Quantity: {{ item.quantity }}</li>
         {% endfor %}
+        
+    
     </ul>
     <a href="{% url 'index' %}">Continue Shopping</a>
 </body>

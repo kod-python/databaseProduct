@@ -10,7 +10,9 @@ def index(request):
     return render(request, 'index.html', {'products': products})
 
 
-
+def display(request):
+    
+    return render(request, 'display.html')
 
 
 def cart_add(request, id):
@@ -55,5 +57,6 @@ def add_to_cart(request, id):
      
         cart = Cart.objects.get(user=request.user)
         cart.add(product, quantity)
-        return JsonResponse({'message': 'Product added to cart'})
+        # return JsonResponse({'message': 'Product added to cart'})
+        return redirect('display')
     return JsonResponse({'error': 'Invalid request'}, status=400)
