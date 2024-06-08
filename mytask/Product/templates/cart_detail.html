@@ -1,73 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart</title>
-</head>
+  </head>
 
-<style>
+  <style>
+    table {
+      border: 1px solid;
+      text-align: center;
+      margin: 10px;
+      font-size: 3rem;
+    }
+  </style>
 
-table{
-    border: 1px solid;
-    text-align: center;
-    margin: 10px;
-    font-size: 3rem;
-}
-
-</style>
-
-
-
-<body>
+  <body>
     <h1>Your Cart</h1>
 
     {% for item in cart %}
     <table>
+      <th>Product</th>
+      <th>Quantity</th>
 
- <th>Product</th>
- <th>Quantity</th>
- 
-
- <tr>
-    <td>{{item.product}}</td>
-    <td>{{item.quantity}}</td>
- </tr>
-
-
-
+      <tr>
+        <td>{{item.product}}</td>
+        <td>{{item.quantity}}</td>
+      </tr>
     </table>
 
-
-
     <form method="post" action="{% url 'delete_from_cart' item.product.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
+      {% csrf_token %}
+      <button type="submit">Delete</button>
     </form>
 
-
-
     <form method="post" action="{% url 'clear_cart' %}">
-        {% csrf_token %}
-        <button type="submit">Clear Cart</button>
+      {% csrf_token %}
+      <button type="submit">Clear Cart</button>
+    </form>
+
+    <form method="post" action="{% url 'edit_cart' %}">
+      {% csrf_token %}
+      <input
+        type="number"
+        name="quantity"
+        value="{{ item.quantity }}"
+        min="1"
+      />
+      <button type="submit">Update</button>
     </form>
 
     {% endfor %}
 
-   
-
-
     <a href="{% url 'index' %}">Continue Shopping</a>
 
-<script>
-
-
-
-
-
-
-       
-
-</script> 
-</body>
+    <script></script>
+  </body>
 </html>

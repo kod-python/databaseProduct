@@ -70,3 +70,22 @@ def clear_cart(request):
     cart = get_object_or_404(Cart, user=request.user)
     cart.clear_cart()
     return redirect('cart_detail')
+
+
+
+
+def edit_cart(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    # product = get_object_or_404(Product)
+    cart_item = get_object_or_404(CartItem, cart=cart)
+
+    if request.method == 'POST':
+        quantity = request.POST.get('quantity', 1)
+        cart_item.quantity = int(quantity)
+        cart_item.save()
+        return redirect('cart_detail')
+
+    context = {
+        'cart_item': cart_item,
+    }
+    return render(request, 'cart/edit_cart.html')
