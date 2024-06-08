@@ -74,10 +74,11 @@ def clear_cart(request):
 
 
 
-def edit_cart(request):
+
+def edit_cart(request, product_id):
     cart = get_object_or_404(Cart, user=request.user)
-    # product = get_object_or_404(Product)
-    cart_item = get_object_or_404(CartItem, cart=cart)
+    product = get_object_or_404(Product, id=product_id)
+    cart_item = get_object_or_404(CartItem, cart=cart, product=product)
 
     if request.method == 'POST':
         quantity = request.POST.get('quantity', 1)

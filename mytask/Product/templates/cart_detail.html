@@ -39,21 +39,21 @@
       <button type="submit">Clear Cart</button>
     </form>
 
-    <form method="post" action="{% url 'edit_cart' %}">
-      {% csrf_token %}
-      <input
-        type="number"
-        name="quantity"
-        value="{{ item.quantity }}"
-        min="1"
-      />
-      <button type="submit">Update</button>
+
+
+
+    <form method="post" action="{% url 'edit_cart' item.product.id %}">
+        {% csrf_token %}
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="{{ cart_item.quantity }}" min="1" required>
+        <button type="submit">Update</button>
     </form>
+
 
     {% endfor %}
 
     <a href="{% url 'index' %}">Continue Shopping</a>
 
-    <script></script>
+    <script src="{% static 'script/edit.js'}"></script>
   </body>
 </html>
