@@ -7,13 +7,13 @@
 </head>
 <body>
     <h1>Your Cart</h1>
-    <ul>
-        {% for item in cart.items %}
-            <li>{{ item.product.name }} - Quantity: {{ item.quantity }}</li>
-        {% endfor %}
-        
-    
-    </ul>
+
+    <table></table>
+
+{% for item in cart %}
+<p>{{ item.product}}: {{item.quantity}}</p> 
+
+{% endfor %}
     <a href="{% url 'index' %}">Continue Shopping</a>
 </body>
 </html>

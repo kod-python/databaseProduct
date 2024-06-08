@@ -10,7 +10,8 @@ urlpatterns = [
     path('cart/add/<int:id>/', views.cart_add, name='cart_add'),
     path('cart/', views.cart_detail, name='cart_detail'),
     path('add-cart/<int:id>/', views.add_to_cart, name='add_to_cart'),
-    path('display', views.display, name="display")
+    path('display', views.display, name="display"),
+   
 ]
 
 
@@ -19,9 +20,3 @@ urlpatterns = [
 
 
 
-# urlpatterns = [
-#    path('', views.index, name="index"),
-#    path('cart/add/<int:id>/', views.add_product_to_cart, name='cart_add'),
-#    path('cart/', views.cart_detail, name='cart_detail'),
-#    path('add-cart/<int:id>/', views.add_to_cart, name="add_to_cart")
-# ]
