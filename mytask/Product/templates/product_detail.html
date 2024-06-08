@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,34 +18,15 @@
         {% csrf_token %}
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" min="1" value="1" />
-        <button type="submit" >Add to Cart</button>
+        <button type="submit"  >Add to Cart</button>
+        
+    
     </form>
 
-    <a href="{% url 'cart_detail' %}">View Cart</a>
 
-    <script>
-        $(document).on('click', '#add-cart', function(e) {
-            e.preventDefault();
-    
-            $.ajax({
-                type: 'POST',
-                url: '{% url "add_to_cart" id=product.id %}',  
-                data: {
-                    product_id: $('#add-cart').val(),
-                    quantity: $('#quantity').val(),
-                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-                    action: 'post'
-                },
-                success: function(json) {
-                    console.log(json);
-                },
-                error: function(xhr, errmsg, err) {
-                    console.error(`Error: ${errmsg}`);
-                    console.error(`Details: ${err}`);
-                    console.error(`Response: ${xhr.responseText}`);
-                }
-            });
-        });
-    </script>
+    <a href="{% url 'index' %}">Home</a>
+
+  <script src="{% static 'script/add.js'%}"></script>
+  <script src="{% static 'script/delete.js'%}"></script>
 </body>
 </html>

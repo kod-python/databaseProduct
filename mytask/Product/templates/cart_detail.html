@@ -5,15 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
 </head>
+
+<style>
+
+table{
+    border: 1px solid;
+    text-align: center;
+    margin: 10px;
+    font-size: 3rem;
+}
+
+</style>
+
+
+
 <body>
     <h1>Your Cart</h1>
 
-    <table></table>
+    {% for item in cart %}
+    <table>
 
-{% for item in cart %}
-<p>{{ item.product}}: {{item.quantity}}</p> 
+ <th>Product</th>
+ <th>Quantity</th>
+ 
 
-{% endfor %}
+ <tr>
+    <td>{{item.product}}</td>
+    <td>{{item.quantity}}</td>
+ </tr>
+
+
+
+    </table>
+
+
+
+    <form method="post" action="{% url 'delete_from_cart' item.product.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+
+
+    <form method="post" action="{% url 'clear_cart' %}">
+        {% csrf_token %}
+        <button type="submit">Clear Cart</button>
+    </form>
+
+    {% endfor %}
+
+   
+
+
     <a href="{% url 'index' %}">Continue Shopping</a>
+
+<script>
+
+
+
+
+
+
+       
+
+</script> 
 </body>
 </html>
