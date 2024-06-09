@@ -20,11 +20,10 @@
   </style>
 
   <body>
-    {% for product in products %}
+ 
    
-    <i class="fa-solid fa-bag-shopping"> <span>({{product.count}})</span></i>
 
-    {% endfor %}
+
     <h1>Your Cart</h1>
 
 
@@ -37,7 +36,7 @@
 
       <tr>
         <td>{{item.product}}</td>
-        <td>{{item.price}}</td>
+        <td>{{item.price}} Ghc</td>
         <td>{{item.quantity}}</td>
         <td>{{item.item_total}}</td>
       </tr>
@@ -69,13 +68,21 @@
 
 
     <a href="{% url 'index' %}">Continue Shopping</a><br><br>
+ <table>
 
-    <tr>
-      <td colspan="3"><strong>Total Price</strong></td>
-      <td><strong>{{ total_price }}</strong></td>
-  </tr>
+  
+    <th>Total Price</th>
+   
+<tr>
+  <td><strong>{{ total_price }} Ghc</strong></td>
+</tr>
+    
 
 
+
+ </table>
+ 
+  <script src="{% static 'script/delete.js'}"></script>
     <script src="{% static 'script/edit.js'}"></script>
   </body>
 </html>

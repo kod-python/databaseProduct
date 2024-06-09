@@ -69,6 +69,16 @@ class Cart(models.Model):
         except CartItem.DoesNotExist:
             pass
     
+    # def item_count(self):
+    #     return sum(item.quantity for item in CartItem.objects.filter(cart=self))
+    
+    def item_count(self):
+        return CartItem.objects.filter(cart=self).count()
+    
+    def product_count(self):
+        return CartItem.objects.filter(cart=self).distinct('product').count()
+
+
     
 
 class CartItem(models.Model):

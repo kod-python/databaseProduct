@@ -10,7 +10,12 @@ from django.contrib import messages
 def index(request):
  
     products = Product.objects.all()
-    return render(request, 'index.html', {'products': products})
+    
+    # cart = Cart.objects.get(user=request.user)
+    cart = Cart.objects.get(user=request.user)
+    total_items = cart.item_count()
+
+    return render(request, 'index.html', {'products': products, 'total_item':total_items})
 
 
 def display(request):
@@ -47,15 +52,16 @@ def cart_detail(request):
             'product': item.product,
             'price': item.price,
             'quantity': item.quantity,
-            'item_total': item_total
+            'item_total': item_total,
+           
         })
     
     
     
     
     # total_price = sum(item.price *  item.quantity for item in cart_items)
-    cart = CartItem.objects.all()
-    return render(request, 'cart_detail.html', {'cart_details':cart_details, 'cart': cart, 'tottal_price':total_price})
+    # cart = CartItem.objects.all()
+    return render(request, 'cart_detail.html', {'cart_details':cart_details, 'cart': cart, 'total_price':total_price})
 
 
 
