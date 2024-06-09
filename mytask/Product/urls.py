@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('cart_font', views.cart_font, name="cart_font"),
     path('cart/add/<int:id>/', views.cart_add, name='cart_add'),
     path('cart/', views.cart_detail, name='cart_detail'),
     path('add-cart/<int:id>/', views.add_to_cart, name='add_to_cart'),

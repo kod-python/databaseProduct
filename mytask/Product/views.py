@@ -18,6 +18,16 @@ def index(request):
     return render(request, 'index.html', {'products': products, 'total_item':total_items})
 
 
+
+
+def cart_font(request):
+    
+    return render(request, 'cart_font.html')
+
+
+
+
+
 def display(request):
     
     return render(request, 'display.html')
