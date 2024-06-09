@@ -33,24 +33,64 @@ def cart_add(request, id):
 
 def cart_detail(request):
   
-    # cart = Cart.objects.get(user=request.user)
+    cart = get_object_or_404(Cart, user=request.user)
+    
+    cart_items = CartItem.objects.filter(cart=cart)
+    
+    
+    cart_details = []
+    total_price = 0
+    for item in cart_items:
+        item_total = item.price * item.quantity
+        total_price += item_total
+        cart_details.append({
+            'product': item.product,
+            'price': item.price,
+            'quantity': item.quantity,
+            'item_total': item_total
+        })
+    
+    
+    
+    
+    # total_price = sum(item.price *  item.quantity for item in cart_items)
     cart = CartItem.objects.all()
-    return render(request, 'cart_detail.html', {'cart': cart})
+    return render(request, 'cart_detail.html', {'cart_details':cart_details, 'cart': cart, 'tottal_price':total_price})
+
+
+
+
 
 
 
 def add_to_cart(request, id):
-
     if request.method == 'POST':
         product = get_object_or_404(Product, id=id)
-        quantity = request.POST.get('quantity', 1)
-     
-        cart = Cart.objects.get(user=request.user)
+        quantity = int(request.POST.get('quantity', 1))
+        
+        cart, created = Cart.objects.get_or_create(user=request.user)
         cart.add(product, quantity)
-        # return JsonResponse({'message': 'Product added to cart'})
+        
+        messages.success(request, "Product added to cart successfully")
         return redirect('display')
-        # messages.SUCCESS(request, "product added to cart succesfully")
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+
+
+
+# def add_to_cart(request, id):
+
+#     if request.method == 'POST':
+#         product = get_object_or_404(Product, id=id)
+#         quantity = request.POST.get('quantity', 1)
+#         # cart, created = Cart.objects.get_or_create(user=request.user)
+#         cart.add(product, quantity)
+#         cart = Cart.objects.get(user=request.user)
+#         # cart.add(product, quantity)
+#         # return JsonResponse({'message': 'Product added to cart'})
+#         return redirect('display')
+#         # messages.SUCCESS(request, "product added to cart succesfully")
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
     
     # return render(request, 'add_to_cart.html')
 

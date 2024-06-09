@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <title>Cart</title>
   </head>
 
@@ -13,19 +14,32 @@
       margin: 10px;
       font-size: 3rem;
     }
+
+
+
   </style>
 
   <body>
+    {% for product in products %}
+   
+    <i class="fa-solid fa-bag-shopping"> <span>({{product.count}})</span></i>
+
+    {% endfor %}
     <h1>Your Cart</h1>
 
-    {% for item in cart %}
+
+    {% for item in cart_details %}
     <table>
       <th>Product</th>
+      <th>Price</th>
       <th>Quantity</th>
+      <th>Total</th>
 
       <tr>
         <td>{{item.product}}</td>
+        <td>{{item.price}}</td>
         <td>{{item.quantity}}</td>
+        <td>{{item.item_total}}</td>
       </tr>
     </table>
 
@@ -34,11 +48,7 @@
       <button type="submit">Delete</button>
     </form>
 
-    <form method="post" action="{% url 'clear_cart' %}">
-      {% csrf_token %}
-      <button type="submit">Clear Cart</button>
-    </form>
-
+  
 
 
 
@@ -47,12 +57,24 @@
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" value="{{ cart_item.quantity }}" min="1" required>
         <button type="submit">Update</button>
+    </form> 
+
+
+    {% endfor %}  
+
+    <form method="post" action="{% url 'clear_cart' %}">
+      {% csrf_token %}
+      <button type="submit">Clear Cart</button>
     </form>
 
 
-    {% endfor %}
+    <a href="{% url 'index' %}">Continue Shopping</a><br><br>
 
-    <a href="{% url 'index' %}">Continue Shopping</a>
+    <tr>
+      <td colspan="3"><strong>Total Price</strong></td>
+      <td><strong>{{ total_price }}</strong></td>
+  </tr>
+
 
     <script src="{% static 'script/edit.js'}"></script>
   </body>
